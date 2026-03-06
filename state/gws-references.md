@@ -17,7 +17,12 @@ Add a line for each resource you want to query. Then update `commands/start.md` 
 |-------|----------|-----|
 | [Your tracker name] | [PASTE SHEET ID HERE] | [Tab name] |
 
-**How to find a Sheet ID:** Open the sheet in your browser. The ID is the long string in the URL between `/d/` and `/edit`. Example: `docs.google.com/spreadsheets/d/`**1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms**`/edit`
+**How to find a Sheet ID:** Open the sheet in your browser. The ID is the long string in the URL between `/d/` and `/edit`:
+```
+https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                        this is the Sheet ID
+```
 
 ## Other resources
 
