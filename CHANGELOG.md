@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.3.0] — claude.ai sync docs and cross-interface positioning
+### Added
+- `docs/claude-projects-sync.md` — dedicated guide for keeping claude.ai projects in sync: what to upload, how skills work in claude.ai, staying current, multi-project patterns
+### Changed
+- `README.md` — opening reframed to lead with cross-interface value; Step 5 updated to point to sync doc; new "Skills work everywhere" section with avoid-ai-writing as the concrete example
+- `docs/migration-guide.md` — Part 3 condensed; links to claude-projects-sync.md for ongoing workflow
+
 ## [0.2.0] — Setup prompts
 ### Added
 - `SETUP-PROMPTS.md` — four interactive prompts: fill in identity, set up musician project, build any new project section, refresh weekly state

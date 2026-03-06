@@ -1,8 +1,8 @@
 # claude-context-starter
 
-Most people paste their context into Claude's project instructions and forget about it. It goes stale. They lose track of what's there. When something changes — a new job, a new project, a new workflow — updating it means hunting through UI fields with no version history.
+Most people paste their context into Claude's project instructions and forget about it. It goes stale. They lose track of what's there. When something changes — a new job, a new project, a new workflow — updating it means hunting through UI fields with no version history. And if you use Claude in multiple places, you're maintaining the same context in multiple places.
 
-This repo flips that. Your context lives in files. Claude Code reads them, maintains them, and commits changes. One repo works across Claude Code, claude.ai projects, and any other interface that can read files.
+This repo flips that. Your context lives in files. Claude Code reads them directly; claude.ai projects read the same files as uploaded knowledge. Update a file once, and every interface you use stays current. Build a skill once — like the `avoid-ai-writing` skill included here — and it works as a slash command in Claude Code and as uploaded context in any claude.ai project.
 
 ---
 
@@ -37,6 +37,7 @@ references/
   gws-mcp-setup.md               # Google Workspace MCP setup guide
 docs/
   migration-guide.md             # How to move from existing Claude projects into this repo
+  claude-projects-sync.md        # How to keep claude.ai projects in sync with this repo
 ```
 
 ---
@@ -72,9 +73,11 @@ claude
 
 `/start` loads your current state and any connected calendar or email data. On your first run it'll orient Claude to who you are and what's in the repo.
 
-**Step 5: Connect to claude.ai (optional)**
+**Step 5: Connect your claude.ai projects**
 
-If you also use claude.ai, you can sync your context there by uploading your key files as project knowledge. See [docs/migration-guide.md](docs/migration-guide.md) for the full walkthrough — including how to audit and migrate context from any existing Claude projects you already have.
+Upload `CLAUDE.md`, `ROUTING.md`, and any relevant skill or project files to each claude.ai project as knowledge. Claude will read from the same source as Claude Code. When you update a file in the repo, re-upload it — your projects stay current with one file swap instead of rewriting system prompts.
+
+See [docs/claude-projects-sync.md](docs/claude-projects-sync.md) for the full workflow, including which files to upload for different project types and how to use skills like `avoid-ai-writing` in claude.ai without a slash command.
 
 **Step 6: Set up Google Workspace MCP (optional)**
 
@@ -103,15 +106,20 @@ Claude will make the edits and commit the changes. Over time, the repo becomes a
 
 ---
 
-## Building your own skills
+## Skills work everywhere
 
-A skill is a markdown file that gives Claude specific instructions for a recurring task. The `avoid-ai-writing` skill in this repo is a working example — it audits and rewrites content to remove AI writing patterns.
+A skill is a markdown file that gives Claude specific instructions for a recurring task. Build it once and it works in every interface you use.
 
-To build your own:
+The `avoid-ai-writing` skill included here is a working example. In Claude Code, it runs as `/clean-ai-writing`. In a claude.ai project, you upload `writing/skills/avoid-ai-writing/SKILL.md` as knowledge and ask Claude to apply it — same behavior, no slash command needed.
+
+When you improve the skill file, re-upload it to your claude.ai projects. One source of truth, updated in one place.
+
+To build your own skills:
 
 1. Create a directory under `projects/your-project/skills/your-skill-name/`
 2. Add a `SKILL.md` file with instructions for the task
-3. Register it as a slash command in `CLAUDE.md`
+3. Register it as a slash command in `CLAUDE.md` for Claude Code
+4. Upload the file to any claude.ai projects where you want the same behavior
 
 The `projects/example-musician/` directory shows the full pattern with two working skills. See `projects/README.md` for the conventions. Use Prompt 3 in `SETUP-PROMPTS.md` to have Claude build a new project section interactively.
 

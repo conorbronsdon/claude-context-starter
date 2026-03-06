@@ -98,33 +98,17 @@ Where in this repo does it belong? If it needs a new file, suggest the path and 
 
 ## Part 3: Connect the repo to claude.ai
 
-Claude Code reads this repo directly from the filesystem. claude.ai projects work differently — they read from uploaded files in project knowledge. Here's how to keep them in sync.
+Claude Code reads this repo directly from the filesystem. claude.ai projects read from uploaded files in project knowledge. The migration step here is simple: upload your core files to each project you want to keep using.
 
-**Which files to upload to a claude.ai project:**
-
-At minimum, upload these to give claude.ai the same orientation as Claude Code:
-
+**At minimum, upload to each project:**
 - `CLAUDE.md` — your identity and routing instructions
 - `ROUTING.md` — the full context routing table
-- Any project-specific files relevant to what you do in that claude.ai project
-
-You don't need to upload everything. A focused project (e.g., one for podcast work) only needs the relevant files for that work.
+- Any project-specific context or skill files relevant to that project's focus
 
 **How to upload:**
+In claude.ai, open the project → Project knowledge → Add content → Upload files.
 
-In claude.ai, open the project → Project knowledge → Add content → Upload files. Repeat for each file.
-
-**Keeping them in sync:**
-
-When you update context files in the repo (via Claude Code), re-upload the changed files to the relevant claude.ai projects. The two won't sync automatically — it's a manual step, but it only takes a minute per changed file.
-
-A convention that helps: at the end of any Claude Code session where you updated context files, run:
-
-```
-Which files did we change today that I should re-upload to my claude.ai projects?
-```
-
-Claude will give you the list.
+For ongoing sync — keeping projects current as you update the repo, using skills in claude.ai, running multiple focused projects from one source — see [claude-projects-sync.md](claude-projects-sync.md) for the full workflow.
 
 ---
 
