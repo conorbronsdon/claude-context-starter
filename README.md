@@ -41,14 +41,12 @@ commands/
 
 ## Setup
 
-### 1. Clone and personalize
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/conorbronsdon/claude-context-starter.git my-context
 cd my-context
 ```
-
-Fill in the `[FILL IN]` placeholders throughout — start with `identity/who-i-am.md`.
 
 ### 2. Install Claude Code
 
@@ -56,7 +54,19 @@ Fill in the `[FILL IN]` placeholders throughout — start with `identity/who-i-a
 npm install -g @anthropic-ai/claude-code
 ```
 
-### 3. Set this repo as your context source
+### 3. Run the setup prompts
+
+Open `SETUP-PROMPTS.md`. It has four copy-paste prompts that build your context files interactively — Claude interviews you and writes the files directly. Start with Prompt 1 (identity) and Prompt 2 (your musician project), and you'll have a working setup in under 20 minutes.
+
+You don't need to manually edit any `[FILL IN]` placeholders — the prompts handle it.
+
+### 4. Install Claude Code (if you haven't)
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+### 5. Set this repo as your context source
 
 Point Claude Code at this directory when starting sessions:
 
@@ -67,7 +77,7 @@ claude
 
 Claude will auto-load `CLAUDE.md` on every session start.
 
-### 4. Set up Google Workspace MCP (optional but recommended)
+### 6. Set up Google Workspace MCP (optional but recommended)
 
 See `references/gws-mcp-setup.md` for full instructions. Short version:
 
@@ -78,9 +88,9 @@ gws auth setup
 
 The `.mcp.json` in this repo is already configured — Claude Code will pick it up automatically when you run it from this directory.
 
-### 5. Add your own projects
+### 7. Add your own projects
 
-See `projects/README.md`. The `example-musician/` project shows the pattern — copy, rename, and fill in for your own use case.
+Use Prompt 3 in `SETUP-PROMPTS.md` — it interviews you about any project and builds the folder, context files, and skills automatically. See `projects/README.md` for the underlying pattern.
 
 ## How to use it
 

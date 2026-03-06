@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.2.0] — Setup prompts
+### Added
+- `SETUP-PROMPTS.md` — four interactive prompts: fill in identity, set up musician project, build any new project section, refresh weekly state
+
 ## [0.1.0] — Initial template
 ### Added
 - `CLAUDE.md` — main context file with slash commands and thought-partner mode
