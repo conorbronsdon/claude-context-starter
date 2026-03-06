@@ -9,7 +9,7 @@
 | Command | Does |
 |---------|------|
 | `/start` | Load state, pull live data, get a session briefing |
-| `/clean-ai-writing` | Audit and rewrite content to remove AI writing patterns |
+| `/clean-ai-writing` | Load `writing/skills/avoid-ai-writing/SKILL.md` and apply it |
 
 Add more commands here as you build out skills. See `projects/README.md` for how.
 
