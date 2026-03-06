@@ -1,6 +1,6 @@
 # Google Workspace CLI (gws) — MCP Setup Guide
 
-**Last Updated:** 2026-03-05
+**Last Updated:** [DATE — update when you verify against the current gws version]
 
 ## What this is
 
