@@ -31,8 +31,11 @@ projects/
 state/
   current.md                     # Active priorities and open threads
   weekly-priorities.md           # What matters most this week
+  gws-references.md              # Google Sheet/Drive IDs for live data in /start
+sessions/                         # Per-day session logs (created by Claude during sessions)
 commands/
   start.md                       # /start session command
+  clean-ai-writing.md            # /clean-ai-writing command
 references/
   gws-mcp-setup.md               # Google Workspace MCP setup guide
 docs/
