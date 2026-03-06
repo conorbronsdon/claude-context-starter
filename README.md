@@ -41,6 +41,7 @@ references/
 docs/
   migration-guide.md             # How to move from existing Claude projects into this repo
   claude-projects-sync.md        # How to keep claude.ai projects in sync with this repo
+  optimizing-context.md          # Convert PDFs/docs to .md and trim files for token efficiency
 ```
 
 ---
@@ -60,7 +61,7 @@ cd my-context
 npm install -g @anthropic-ai/claude-code
 ```
 
-Claude Code reads `CLAUDE.md` automatically on every session start — that's how your context loads. Run it from the repo directory and it picks everything up.
+Claude Code reads `CLAUDE.md` automatically on every session start — that's how your context loads. Run it from the repo directory and it picks everything up. Full setup docs: https://docs.anthropic.com/en/docs/claude-code
 
 **Step 3: Build your context files**
 
