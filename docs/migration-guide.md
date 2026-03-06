@@ -73,6 +73,8 @@ Use `who-i-am.md` for personal context, `professional-background.md` for credent
 **Project-specific context** → `projects/your-project-name/`
 Copy the pattern from `projects/example-musician/`. Each project gets its own directory with a README, context files, and a `skills/` subdirectory for recurring workflows. Use Prompt 3 in `SETUP-PROMPTS.md` to have Claude build the folder structure interactively.
 
+**Converting non-markdown files** — if the project had PDFs, Word docs, or other uploaded files worth keeping, convert them to `.md` before adding them to the repo. See [optimizing-context.md](optimizing-context.md) for the conversion prompt and format guidance. Clean markdown uses 3–5x fewer tokens than a PDF of the same content.
+
 **Skills** (recurring task instructions) → `projects/your-project/skills/skill-name/SKILL.md`
 If the project had a detailed system prompt for a specific task — writing in a particular format, analyzing a particular type of content — that's a skill. Extract it, clean it up, and file it here. Register it as a slash command in `CLAUDE.md`.
 
@@ -127,7 +129,7 @@ For ongoing sync — keeping projects current as you update the repo, using skil
 ## Common questions
 
 **Do I need Claude Code, or can I just use claude.ai?**
-You can use either. Claude Code can maintain the repo for you — updating files, committing changes, running slash commands. claude.ai can read from the uploaded files but can't write back to the repo. Most people use both: Claude Code for active work sessions and context maintenance, claude.ai for tasks in the browser.
+You can use either. Claude Code can maintain the repo for you — updating files, committing changes, running slash commands. claude.ai can read from the uploaded files but can't write back to the repo. Most people use both: Claude Code for active work sessions and context maintenance, claude.ai for tasks in the browser. Install Claude Code: `npm install -g @anthropic-ai/claude-code` — full docs at https://docs.anthropic.com/en/docs/claude-code
 
 **What if a project has a lot of conversation history worth keeping?**
 Conversation history doesn't migrate cleanly. What you want is the *output* of those conversations — the decisions made, the documents produced, the strategies that emerged. Ask the project to summarize the key decisions and outputs from recent conversations, then save that summary as a reference file in the repo.
