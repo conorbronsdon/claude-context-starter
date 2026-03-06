@@ -25,7 +25,9 @@ The goal: your context should be **as short as possible while remaining complete
 
 ## The conversion prompt
 
-Use this prompt in Claude Code or claude.ai to convert any document to context-optimized markdown. Paste the document content directly, or describe the file and attach it.
+The fastest approach: paste or attach any file directly into claude.ai or Claude Code and run the prompt below. Claude does the conversion for you — no tools or exports needed. This is how most people build out their initial context files.
+
+Use this prompt in Claude Code or claude.ai. Paste the document content directly, or describe the file and attach it.
 
 ```
 Convert the following document to clean, context-optimized markdown for use as a Claude context file.
