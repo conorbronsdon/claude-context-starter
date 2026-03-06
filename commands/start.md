@@ -15,8 +15,8 @@ Run `date +%Y-%m-%d` and store as TODAY. Note the day of week.
 - `CLAUDE.md` — routing rules and slash commands
 - `state/current.md` — active priorities and open threads
 - `state/weekly-priorities.md` — what matters most this week
-- `sessions/{TODAY}.md` — if it exists, resume today's session
-- If no today file, read the most recent file in `sessions/` for continuity
+- `sessions/{TODAY}.md` — if it exists, resume today's session; if not, check for the most recent file in `sessions/` for continuity; if `sessions/` is empty, start fresh
+- See `sessions/README.md` for how session files work
 
 ### 3. Pull live data from Google Workspace (if MCP available)
 
@@ -39,7 +39,7 @@ Fields: `"items(summary,start,end,attendees)"` — flag anything time-sensitive 
 Use `gmail_users_messages_list` with `{"userId": "me", "q": "is:unread", "maxResults": 1}` and fields `"resultSizeEstimate"`. Only mention if count is notably high.
 
 **Project trackers (if configured):**
-If you use Google Sheets to track anything (tasks, pipeline, content log), add the Sheet ID to `state/gws-references.md` and query it here. See `references/gws-mcp-setup.md` for how.
+If you use Google Sheets to track anything (tasks, pipeline, content log), check `state/gws-references.md` for configured Sheet IDs and query them here. If the file has no IDs yet, skip this step — see `state/gws-references.md` for setup instructions.
 
 ### 4. Give a briefing
 Keep it short:

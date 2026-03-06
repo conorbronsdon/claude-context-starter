@@ -1,6 +1,10 @@
 # Setup Prompts
 
-Paste these prompts into Claude Code (run from this repo directory) to build out your context files interactively. Claude will ask you questions and write the files directly — no manual editing required.
+Paste these prompts to build out your context files interactively. Claude will ask you questions and write the files directly — no manual editing required.
+
+**In Claude Code:** Run from this repo directory. Claude reads and writes files directly, commits changes, and maintains the repo for you. This is the recommended path.
+
+**In claude.ai:** These prompts work there too — Claude will generate the content, but you'll need to copy it into the files manually since claude.ai can't write to your local filesystem.
 
 Run them in order the first time. After that, use them whenever you need to refresh a section.
 
@@ -31,9 +35,11 @@ After I've answered all of them, write the files. Use my exact words where possi
 
 ---
 
-## Prompt 2: Set up your musician project
+## Prompt 2: Set up your first project
 
-Fills in `projects/example-musician/artist-context.md` and `projects/example-musician/promotion-strategy.md`. Also renames the example folder to match your artist name.
+The example project in this repo is built for a musician — so the questions below are tailored for that. If your project is something else entirely, skip to Prompt 3, which is generic and works for any project type.
+
+This prompt fills in `projects/example-musician/artist-context.md` and `projects/example-musician/promotion-strategy.md`, then renames the folder to match your artist name.
 
 ```
 Read projects/example-musician/artist-context.md and projects/example-musician/promotion-strategy.md so you understand the structure. Then interview me to fill them in.
@@ -129,5 +135,5 @@ Update both files with my answers. Update the dates. Keep it terse — these fil
 
 - **Run these in Claude Code** from inside this repo directory — Claude will read and write files directly
 - **Your words beat polished prose** — the prompts tell Claude to use your exact answers. Don't overthink your responses.
-- **Re-run anytime** — these aren't one-time setup. Run Prompt 2 again when you have a new release. Run Prompt 4 every Monday.
+- **Re-run anytime** — these aren't one-time setup. Run Prompt 2 or 3 again when a project evolves significantly. Run Prompt 4 every Monday.
 - **Add your own** — once you see the pattern, you can write prompts for anything. A prompt that builds your weekly review, drafts a specific type of email, or updates a specific context file on a schedule.

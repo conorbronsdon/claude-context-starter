@@ -25,9 +25,11 @@ The core workflow this covers:
 
 ## Slash commands to add (optional)
 
-Once you've filled in the context files, add these to your `CLAUDE.md` slash commands table and create the corresponding files in `commands/`:
+Once you've filled in the context files, add these to the slash commands table in `CLAUDE.md`:
 
 ```
 | `/social-post` | Write a platform-native social post for a new release or show |
 | `/press-pitch` | Draft an outreach email to a blog, playlist, or press contact |
 ```
+
+Then create a corresponding file in `commands/` for each one. The pattern is the same as `commands/start.md` — a frontmatter block declaring the skill name and which tools it needs, followed by instructions that tell Claude which skill file to load. Prompt 3 in `SETUP-PROMPTS.md` will handle this automatically if you ask for slash commands during setup.

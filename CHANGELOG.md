@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.4.0] — Broken references, missing files, and clarity fixes
+### Added
+- `.gitignore` — excludes .DS_Store, editor files, secrets, logs
+- `sessions/` directory with `.gitkeep` and `sessions/README.md` explaining the session log pattern
+- `state/gws-references.md` — template for storing Google Sheet/Drive IDs used by `/start`
+### Changed
+- `SETUP-PROMPTS.md` — intro updated to cover both Claude Code and claude.ai; Prompt 2 retitled "Set up your first project" with a note that questions are musician-specific and Prompt 3 is generic; Tips de-musician-ified
+- `commands/start.md` — sessions reference updated to handle empty directory gracefully; gws-references step updated to degrade gracefully if no IDs are configured yet
+- `projects/example-musician/README.md` — slash commands section now explains the commands/ pattern and links to Prompt 3 for automated setup
+
 ## [0.3.0] — claude.ai sync docs and cross-interface positioning
 ### Added
 - `docs/claude-projects-sync.md` — dedicated guide for keeping claude.ai projects in sync: what to upload, how skills work in claude.ai, staying current, multi-project patterns
