@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.5.0] — Skill infrastructure and housekeeping
+### Added
+- `commands/clean-ai-writing.md` — command file for `/clean-ai-writing`; also serves as the minimal command file pattern example
+### Changed
+- `writing/skills/avoid-ai-writing/SKILL.md` — added `upstream` frontmatter field and visible note pointing to https://github.com/conorbronsdon/avoid-ai-writing
+- `projects/README.md` — documented full skill frontmatter spec: `requires`, `allowed-tools`, `upstream` fields with table, minimal example, and full example
+- `references/gws-mcp-setup.md` — replaced hardcoded date with placeholder
+- `CLAUDE.md` — `/clean-ai-writing` routing now points explicitly to skill file path instead of describing the task
+- `README.md` — file tree updated to include `sessions/`, `state/gws-references.md`, `commands/clean-ai-writing.md`
+
 ## [0.4.0] — Broken references, missing files, and clarity fixes
 ### Added
 - `.gitignore` — excludes .DS_Store, editor files, secrets, logs
