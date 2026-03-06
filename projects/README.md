@@ -42,10 +42,43 @@ projects/your-project-name/skills/task-name/SKILL.md
 ```
 
 Each skill file should contain:
-- A frontmatter block declaring `name` and `description`
+- A frontmatter block (see fields below)
 - Step-by-step instructions for the task
 - Output format
 - Examples or calibration notes
+
+**Frontmatter fields:**
+
+| Field | Required | Purpose |
+|-------|----------|---------|
+| `name` | Yes | Identifier used to reference the skill |
+| `description` | Yes | When to load this skill — Claude uses this to decide whether it applies |
+| `requires.context` | No | List of context files to read before running |
+| `requires.skills` | No | List of other skill files to load alongside this one |
+| `allowed-tools` | No | Restrict which Claude Code tools the skill can use (e.g. `Read`, `Bash`) |
+| `upstream` | No | URL of the canonical source if the skill is maintained externally |
+
+Minimal example:
+```
+---
+name: my-skill
+description: What this skill does and when to invoke it
+---
+```
+
+Full example:
+```
+---
+name: my-skill
+description: What this skill does and when to invoke it
+requires:
+  context:
+    - projects/my-project/context.md
+  skills:
+    - writing/skills/avoid-ai-writing/SKILL.md
+allowed-tools: Read
+---
+```
 
 ### Step 5: Wire it into ROUTING.md and CLAUDE.md
 
