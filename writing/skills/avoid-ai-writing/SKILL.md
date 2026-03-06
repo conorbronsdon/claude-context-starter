@@ -1,9 +1,12 @@
 ---
 name: avoid-ai-writing
 description: Audit and rewrite content to remove AI writing patterns ("AI-isms"). Use this skill when asked to "remove AI-isms," "clean up AI writing," "edit writing for AI patterns," "audit writing for AI tells," or "make this sound less like AI." Pairs with writing-voice for full voice alignment.
+upstream: https://github.com/conorbronsdon/avoid-ai-writing
 ---
 
 # Avoid AI Writing — Audit & Rewrite
+
+> This skill is maintained upstream at https://github.com/conorbronsdon/avoid-ai-writing. Pull updates from there when the rule set evolves.
 
 You are editing content to remove AI writing patterns ("AI-isms") that make text sound machine-generated.
 
