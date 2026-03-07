@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [0.6.0] — Session lifecycle, validation, and skill scaffolding
+### Added
+- `commands/end.md` — `/end` command: log session, update state files, close the session loop
+- `commands/update.md` — `/update` command: mid-session checkpoint for quick state saves
+- `commands/today.md` — `/today` command: morning heartbeat with staleness checks and calendar
+- `TODO.md` — canonical task backlog template (separate from state/current.md top-of-mind view)
+- `docs/agent-template.md` — reusable scaffold for building new skills: SKILL.md template, command file template, pre-ship checklist
+- `scripts/validate-skills.sh` — validation script: checks frontmatter, CLAUDE.md line count, secrets, staleness
+### Changed
+- `CLAUDE.md` — added `/end`, `/update`, `/today` to command table; added Single Source of Truth rules; added line limit convention; pointed skill creation at `docs/agent-template.md`
+- `ROUTING.md` — added session management section; added skill-building section with agent-template reference
+- `README.md` — updated file tree; added Session Lifecycle and Validation sections; documented the full session loop
+- `sessions/README.md` — added structured session log format and `/end` integration guidance
+
 ## [0.5.0] — Skill infrastructure and housekeeping
 ### Added
 - `commands/clean-ai-writing.md` — command file for `/clean-ai-writing`; also serves as the minimal command file pattern example

@@ -11,6 +11,7 @@ This repo flips that. Your context lives in files. Claude Code reads them direct
 ```
 CLAUDE.md                         # Main context file — who you are, slash commands, routing
 ROUTING.md                        # Full context routing table for tasks without a slash command
+TODO.md                           # Canonical task backlog (separate from state/current.md)
 SETUP-PROMPTS.md                  # Interactive prompts to build your context files from scratch
 .mcp.json                         # Google Workspace MCP config (Drive, Gmail, Calendar, Sheets)
 identity/
@@ -29,16 +30,22 @@ projects/
       social-post/SKILL.md
       press-outreach/SKILL.md
 state/
-  current.md                     # Active priorities and open threads
+  current.md                     # Active priorities and open threads (top-of-mind view)
   weekly-priorities.md           # What matters most this week
   gws-references.md              # Google Sheet/Drive IDs for live data in /start
-sessions/                         # Per-day session logs (created by Claude during sessions)
+sessions/                         # Per-day session logs (created by /end)
 commands/
-  start.md                       # /start session command
+  start.md                       # /start — begin a session
+  end.md                         # /end — log session and update state
+  update.md                      # /update — mid-session checkpoint
+  today.md                       # /today — morning heartbeat
   clean-ai-writing.md            # /clean-ai-writing command
+scripts/
+  validate-skills.sh             # Check skill structure, frontmatter, secrets, staleness
 references/
   gws-mcp-setup.md               # Google Workspace MCP setup guide
 docs/
+  agent-template.md              # Scaffold for building new skills
   migration-guide.md             # How to move from existing Claude projects into this repo
   claude-projects-sync.md        # How to keep claude.ai projects in sync with this repo
   optimizing-context.md          # Convert PDFs/docs to .md and trim files for token efficiency
@@ -96,6 +103,23 @@ The `.mcp.json` in this repo is already configured. Claude Code picks it up auto
 
 ---
 
+## The session loop
+
+The core workflow: **`/start` → work → `/end`**
+
+| Command | When | What it does |
+|---------|------|-------------|
+| `/start` | Beginning of session | Loads state, pulls live data, gives you a briefing |
+| `/update` | Mid-session | Quick checkpoint — saves progress without closing |
+| `/end` | End of session | Logs what happened, updates state for next time |
+| `/today` | Start of day | Lighter heartbeat — staleness check, calendar, priorities |
+
+`/start` and `/end` are the critical pair. Without `/end`, your state files go stale and the next `/start` loses context. Think of it as save/load for your working memory.
+
+Session logs are written to `sessions/YYYY-MM-DD.md` — see `sessions/README.md` for the format.
+
+---
+
 ## How to use it day-to-day
 
 Start every Claude Code session with `/start`. It loads your current state and surfaces what's on your plate.
@@ -120,12 +144,38 @@ When you improve the skill file, re-upload it to your claude.ai projects. One so
 
 To build your own skills:
 
-1. Create a directory under `projects/your-project/skills/your-skill-name/`
-2. Add a `SKILL.md` file with instructions for the task
-3. Register it as a slash command in `CLAUDE.md` for Claude Code
-4. Upload the file to any claude.ai projects where you want the same behavior
+1. Read `docs/agent-template.md` for the scaffold and checklist
+2. Create a directory under `projects/your-project/skills/your-skill-name/`
+3. Add a `SKILL.md` file with instructions for the task
+4. Add a command file in `commands/` and a row in `CLAUDE.md` for a slash command
+5. Run `scripts/validate-skills.sh` to verify the structure
+6. Upload the file to any claude.ai projects where you want the same behavior
 
 The `projects/example-musician/` directory shows the full pattern with two working skills. See `projects/README.md` for the conventions. Use Prompt 3 in `SETUP-PROMPTS.md` to have Claude build a new project section interactively.
+
+---
+
+## Validation
+
+Run `scripts/validate-skills.sh` before pushing to catch common issues:
+
+- Missing or malformed YAML frontmatter on skill and command files
+- CLAUDE.md over 100 lines (keep detail in skills and ROUTING.md, not the root file)
+- Secrets accidentally committed (API keys, tokens, private keys)
+- Stale context files (90+ days since last update)
+
+```bash
+bash scripts/validate-skills.sh
+```
+
+---
+
+## Key conventions
+
+- **Single source of truth:** Each piece of data lives in one file. Other files reference it, never duplicate it. See `CLAUDE.md` for the SSOT rules.
+- **CLAUDE.md stays small:** Under 100 lines. It's loaded on every session — detail belongs in skills and ROUTING.md.
+- **Staleness dates:** Context files should have `**Last Updated:**` near the top. The validation script flags anything 90+ days old.
+- **TODO.md vs. current.md:** `TODO.md` is the full backlog. `state/current.md` is the curated top-of-mind view for `/start`. Don't duplicate between them.
 
 ---
 

@@ -2,19 +2,35 @@
 
 This directory holds per-day session notes. The `/start` command checks for a file matching today's date — if one exists, it resumes from where you left off. If not, it reads the most recent file for continuity.
 
-## Format
+## How sessions work
 
-Files are named `YYYY-MM-DD.md`. Claude Code creates and updates them during sessions when you ask it to log what you worked on.
+The session loop: `/start` → work → `/update` (optional) → `/end`
 
-## Example
+- **`/start`** reads the latest session file and state to give you a briefing
+- **`/update`** saves a mid-session checkpoint (use when you've made progress but aren't done)
+- **`/end`** writes the session log and updates state files for next time
 
-Ask Claude at the end of a session:
+## Session log format
 
+Files are named `YYYY-MM-DD.md`. The `/end` command creates them with this structure:
+
+```markdown
+# Session — 2026-03-07
+
+## What happened
+- Built out the new landing page copy
+- Decided to drop the FAQ section — too much overlap with docs
+
+## Decisions
+- Landing page leads with social proof, not features
+- Launch target: next Tuesday
+
+## Next time
+- Get feedback from [person] on the hero copy
+- Wire up the CTA tracking
 ```
-Log today's session — what we worked on, decisions made, and what's next.
-```
 
-It will create or update `sessions/YYYY-MM-DD.md` with a brief summary. The next time you run `/start`, it reads that file and picks up the thread.
+If you run multiple sessions in a day, `/end` appends a new timestamped section rather than overwriting.
 
 ## What to put in a session file
 

@@ -4,7 +4,7 @@ For tasks without a slash command, use this table to determine which files to lo
 
 ## Writing tasks
 - Any writing/editing task → read `writing/skills/avoid-ai-writing/SKILL.md`
-- Add more writing skills here as you build them (see `projects/README.md` for the pattern)
+- Add more writing skills here as you build them (see `docs/agent-template.md` for the pattern)
 
 ## Project tasks
 - Add a line per project as you build them out
@@ -15,6 +15,17 @@ For tasks without a slash command, use this table to determine which files to lo
 - Bio/background → read `identity/who-i-am.md`
 - Professional credentials → read `identity/professional-background.md`
 
+## Session management
+- Starting a session → `/start`
+- Ending a session → `/end`
+- Quick checkpoint → `/update`
+- Morning check-in → `/today`
+- Weekly review → read `state/current.md` and `state/weekly-priorities.md`
+- Task backlog → read `TODO.md`
+
 ## Strategy & reflection
 - Thinking through a decision → apply thought-partner mode (see CLAUDE.md)
-- Weekly review → read `state/current.md` and `state/weekly-priorities.md`
+
+## Building new skills
+- Creating a new skill → read `docs/agent-template.md` for the scaffold and checklist
+- Validating skill structure → run `scripts/validate-skills.sh`
