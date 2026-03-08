@@ -18,6 +18,7 @@
 | `/context` | Find relevant context files by topic keyword |
 | `/digest` | Synthesize session logs into patterns and stale threads |
 | `/reconcile` | Drift detection after parallel sessions |
+| `/recover` | Scan orphaned worktrees and stale branches, offer cleanup |
 | `/content-shipped` | Log a published piece of content |
 
 Add more commands as you build out skills. See `docs/agent-template.md` for how.

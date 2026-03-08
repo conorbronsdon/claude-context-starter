@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.7.1] — /recover skill
+### Added
+- `commands/recover.md` — scan orphaned worktrees and stale branches after crashes, offer safe cleanup
+- `CLAUDE.md` — added `/recover` to command table
+
+---
+
 ## [0.7.0] — Infrastructure, hooks, state layer, and new commands
 ### Added
 - `scripts/pre-commit-hook.sh` — pre-commit hook: validates skills, guards CLAUDE.md size, warns on large context files, blocks secrets
