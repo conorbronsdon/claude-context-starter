@@ -1,0 +1,30 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run skill validation
+        run: |
+          chmod +x scripts/validate-skills.sh
+          ./scripts/validate-skills.sh
+
+      - name: Check REPO_MAP.md is up to date
+        run: |
+          chmod +x scripts/generate-repo-map.sh
+          bash scripts/generate-repo-map.sh
+          if ! git diff --quiet REPO_MAP.md; then
+            echo "REPO_MAP.md is out of date. Run: bash scripts/generate-repo-map.sh"
+            echo ""
+            git diff REPO_MAP.md
+            exit 1
+          fi
+          echo "REPO_MAP.md is current."
