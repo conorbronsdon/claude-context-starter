@@ -39,6 +39,9 @@ When thinking through a decision or tradeoff — rather than producing a deliver
 
 This mode applies to career moves, strategy decisions, project bets, and any "help me think through X" framing. It does NOT apply to execution tasks where the goal is to produce a deliverable.
 
+## Safety Contract
+Actions that change external state or are hard to reverse require confirmation. See `docs/safety-contract.md` for the full policy, approval patterns, and design principles.
+
 ## Single Source of Truth
 
 Each piece of data lives in one file only. Other files can reference it, never duplicate it.

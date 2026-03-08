@@ -2,10 +2,11 @@
 
 ## [Unreleased]
 
-## [0.7.1] — /recover skill
+## [0.7.1] — Safety contract and /recover
 ### Added
+- `docs/safety-contract.md` — centralized policy for actions requiring confirmation (approval patterns, advisory warnings, design principles)
 - `commands/recover.md` — scan orphaned worktrees and stale branches after crashes, offer safe cleanup
-- `CLAUDE.md` — added `/recover` to command table
+- `CLAUDE.md` — added `/recover` to command table, added safety contract reference
 
 ---
 
