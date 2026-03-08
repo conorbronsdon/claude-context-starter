@@ -32,18 +32,40 @@ projects/
 state/
   current.md                     # Active priorities and open threads (top-of-mind view)
   weekly-priorities.md           # What matters most this week
+  decisions.md                   # Append-only decision log (newest first)
+  blockers.md                    # Active blockers preventing progress
+  heartbeat-log.md               # Running log from /today morning briefings
   gws-references.md              # Google Sheet/Drive IDs for live data in /start
 sessions/                         # Per-day session logs (created by /end)
+inbox/                            # Drop zone for unstructured notes (triaged by /capture)
+content/
+  log.md                         # Published content log (used by /report)
 commands/
   start.md                       # /start — begin a session
   end.md                         # /end — log session and update state
   update.md                      # /update — mid-session checkpoint
   today.md                       # /today — morning heartbeat
+  capture.md                     # /capture — triage inbox items
+  context.md                     # /context — find files by topic
+  digest.md                      # /digest — synthesize session logs
+  reconcile.md                   # /reconcile — drift detection
+  content-shipped.md             # /content-shipped — log published content
   clean-ai-writing.md            # /clean-ai-writing command
 scripts/
   validate-skills.sh             # Check skill structure, frontmatter, secrets, staleness
+  setup.sh                       # First-run setup (hooks, permissions, repo map)
+  generate-repo-map.sh           # Auto-generate REPO_MAP.md
+  pre-commit-hook.sh             # Pre-commit validation hook
 references/
   gws-mcp-setup.md               # Google Workspace MCP setup guide
+  notion-mcp-setup.md            # Notion MCP server setup guide
+.claude/
+  hooks/
+    session-start.sh             # Advisory hook: stale files, inbox, overdue TODOs
+    ssot-guard.sh                # Advisory hook: warn on SSOT file edits
+.github/
+  workflows/validate.yml         # CI: skill validation + REPO_MAP freshness
+  PULL_REQUEST_TEMPLATE.md       # PR checklist
 docs/
   agent-template.md              # Scaffold for building new skills
   migration-guide.md             # How to move from existing Claude projects into this repo
@@ -62,7 +84,13 @@ git clone https://github.com/conorbronsdon/claude-context-starter.git my-context
 cd my-context
 ```
 
-**Step 2: Install Claude Code**
+**Step 2: Run setup**
+
+```bash
+bash scripts/setup.sh
+```
+
+This installs the pre-commit hook, makes scripts executable, and generates `REPO_MAP.md`. It also checks that you have Claude Code installed — if not:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
@@ -113,6 +141,11 @@ The core workflow: **`/start` → work → `/end`**
 | `/update` | Mid-session | Quick checkpoint — saves progress without closing |
 | `/end` | End of session | Logs what happened, updates state for next time |
 | `/today` | Start of day | Lighter heartbeat — staleness check, calendar, priorities |
+| `/capture` | When inbox has items | Triages raw notes from `inbox/` into the right files |
+| `/context` | Any time | Finds relevant context files by topic keyword |
+| `/digest` | Weekly | Synthesizes session logs into patterns and stale threads |
+| `/reconcile` | After parallel work | Detects drift between sessions, SSOT violations |
+| `/content-shipped` | After publishing | Logs a published piece to `content/log.md` |
 
 `/start` and `/end` are the critical pair. Without `/end`, your state files go stale and the next `/start` loses context. Think of it as save/load for your working memory.
 

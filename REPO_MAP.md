@@ -1,6 +1,6 @@
 # Repo Map
 
-Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
+Generated: 2026-03-08 | Commit: 7a8c5cc (2026-03-08)
 
 ---
 
@@ -18,22 +18,45 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 
 | File | Lines | Last Modified | Description |
 |------|-------|---------------|-------------|
-| `CHANGELOG.md` | 63 | 2026-03-07 | Changelog |
-| `CLAUDE.md` | 52 | 2026-03-07 | [Your Name] — Context |
-| `README.md` | 195 | 2026-03-07 | claude-context-starter |
+| `CHANGELOG.md` | 89 | 2026-03-07 | Changelog |
+| `CLAUDE.md` | 67 | 2026-03-08 | [Your Name] — Context |
+| `README.md` | 228 | 2026-03-07 | claude-context-starter |
 | `ROUTING.md` | 31 | 2026-03-07 | Context Routing |
 | `SETUP-PROMPTS.md` | 139 | 2026-03-06 | Setup Prompts |
 | `TODO.md` | 18 | 2026-03-07 | TODO |
+
+### .claude
+
+| File | Lines | Last Modified | Description |
+|------|-------|---------------|-------------|
+| `.claude/hooks/README.md` | 42 | 2026-03-08 | Claude Code Hooks |
+
+### .github
+
+| File | Lines | Last Modified | Description |
+|------|-------|---------------|-------------|
+| `.github/PULL_REQUEST_TEMPLATE.md` | 17 | 2026-03-08 | PULL_REQUEST_TEMPLATE |
 
 ### commands
 
 | File | Lines | Last Modified | Description |
 |------|-------|---------------|-------------|
+| `commands/capture.md` | 38 | 2026-03-08 | /capture — Triage Inbox |
 | `commands/clean-ai-writing.md` | 9 | 2026-03-06 | /clean-ai-writing |
+| `commands/content-shipped.md` | 36 | 2026-03-08 | /content-shipped — Log Published Content |
+| `commands/context.md` | 41 | 2026-03-08 | /context — Find Relevant Files by Topic |
+| `commands/digest.md` | 52 | 2026-03-08 | /digest — Synthesize Session Logs |
 | `commands/end.md` | 48 | 2026-03-07 | /end — Close Session |
+| `commands/reconcile.md` | 51 | 2026-03-08 | /reconcile — Drift Detection |
 | `commands/start.md` | 52 | 2026-03-06 | /start — Begin Session |
 | `commands/today.md` | 40 | 2026-03-07 | /today — Morning Heartbeat |
 | `commands/update.md` | 30 | 2026-03-07 | /update — Mid-Session Checkpoint |
+
+### content
+
+| File | Lines | Last Modified | Description |
+|------|-------|---------------|-------------|
+| `content/log.md` | 14 | 2026-03-08 | Content Log |
 
 ### docs
 
@@ -67,6 +90,7 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 | File | Lines | Last Modified | Description |
 |------|-------|---------------|-------------|
 | `references/gws-mcp-setup.md` | 83 | 2026-03-06 | Google Workspace CLI (gws) — MCP Setup Guide |
+| `references/notion-mcp-setup.md` | 60 | 2026-03-08 | Notion MCP Setup |
 
 ### sessions
 
@@ -78,8 +102,11 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 
 | File | Lines | Last Modified | Description |
 |------|-------|---------------|-------------|
+| `state/blockers.md` | 7 | 2026-03-08 | Blockers |
 | `state/current.md` | 24 | 2026-03-06 | Current State |
+| `state/decisions.md` | 13 | 2026-03-08 | Decisions Log |
 | `state/gws-references.md` | 35 | 2026-03-06 | Google Workspace References |
+| `state/heartbeat-log.md` | 12 | 2026-03-08 | Heartbeat Log |
 | `state/weekly-priorities.md` | 17 | 2026-03-06 | Weekly Priorities |
 
 ### writing
@@ -92,6 +119,15 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 
 ```
 .
+├── .claude
+  ├── hooks
+    ├── README.md
+    ├── session-start.sh
+    ├── ssot-guard.sh
+├── .github
+  ├── PULL_REQUEST_TEMPLATE.md
+  ├── workflows
+    ├── validate.yml
 ├── .gitignore
 ├── .mcp.json
 ├── CHANGELOG.md
@@ -102,11 +138,18 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 ├── SETUP-PROMPTS.md
 ├── TODO.md
 ├── commands
+  ├── capture.md
   ├── clean-ai-writing.md
+  ├── content-shipped.md
+  ├── context.md
+  ├── digest.md
   ├── end.md
+  ├── reconcile.md
   ├── start.md
   ├── today.md
   ├── update.md
+├── content
+  ├── log.md
 ├── docs
   ├── agent-template.md
   ├── claude-projects-sync.md
@@ -115,6 +158,7 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 ├── identity
   ├── professional-background.md
   ├── who-i-am.md
+├── inbox
 ├── projects
   ├── README.md
   ├── example-musician
@@ -128,6 +172,7 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
         ├── SKILL.md
 ├── references
   ├── gws-mcp-setup.md
+  ├── notion-mcp-setup.md
 ├── scripts
   ├── generate-repo-map.sh
   ├── pre-commit-hook.sh
@@ -136,8 +181,11 @@ Generated: 2026-03-08 | Commit: 9139d17 (2026-03-08)
 ├── sessions
   ├── README.md
 ├── state
+  ├── blockers.md
   ├── current.md
+  ├── decisions.md
   ├── gws-references.md
+  ├── heartbeat-log.md
   ├── weekly-priorities.md
 ├── writing
   ├── skills

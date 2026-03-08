@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+## [0.7.0] — Infrastructure, hooks, state layer, and new commands
+### Added
+- `scripts/pre-commit-hook.sh` — pre-commit hook: validates skills, guards CLAUDE.md size, warns on large context files, blocks secrets
+- `scripts/setup.sh` — first-run setup: installs hook, makes scripts executable, generates repo map, checks tools
+- `scripts/generate-repo-map.sh` — auto-generates REPO_MAP.md from directory structure
+- `REPO_MAP.md` — auto-generated file/directory map
+- `.github/workflows/validate.yml` — CI: skill validation on push/PR, REPO_MAP freshness check
+- `.github/PULL_REQUEST_TEMPLATE.md` — PR checklist for skills, commands, and repo hygiene
+- `.claude/hooks/session-start.sh` — advisory SessionStart hook: surfaces stale state, inbox items, overdue TODOs
+- `.claude/hooks/ssot-guard.sh` — advisory PreToolUse hook: warns when editing SSOT files
+- `.claude/hooks/README.md` — hook documentation with settings.local.json example
+- `state/decisions.md` — append-only decision log template
+- `state/blockers.md` — active blockers tracker template
+- `state/heartbeat-log.md` — /today morning briefing log template
+- `inbox/` — drop zone for unstructured notes, triaged by /capture
+- `content/log.md` — published content log template
+- `commands/capture.md` — /capture: triage inbox items into correct locations
+- `commands/context.md` — /context: find relevant context files by topic keyword
+- `commands/digest.md` — /digest: synthesize session logs into patterns and stale threads
+- `commands/reconcile.md` — /reconcile: drift detection after parallel sessions
+- `commands/content-shipped.md` — /content-shipped: log published content
+- `references/notion-mcp-setup.md` — Notion MCP server setup guide
+### Changed
+- `CLAUDE.md` — added new commands to table; added parallel session guidance; added Claude Code vs claude.ai routing note; added generate-repo-map.sh to repo maintenance
+- `README.md` — updated file tree with all new files; added setup.sh to setup steps; expanded command table with new commands
+
 ## [0.6.0] — Session lifecycle, validation, and skill scaffolding
 ### Added
 - `commands/end.md` — `/end` command: log session, update state files, close the session loop
