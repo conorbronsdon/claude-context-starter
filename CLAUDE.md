@@ -14,7 +14,13 @@
 | `/today` | Morning heartbeat — briefing, staleness check, deadlines |
 | `/clean-ai-writing` | Load `writing/skills/avoid-ai-writing/SKILL.md` and apply it |
 
-Add more commands here as you build out skills. See `docs/agent-template.md` for how.
+| `/capture` | Triage raw notes from `inbox/` into the right locations |
+| `/context` | Find relevant context files by topic keyword |
+| `/digest` | Synthesize session logs into patterns and stale threads |
+| `/reconcile` | Drift detection after parallel sessions |
+| `/content-shipped` | Log a published piece of content |
+
+Add more commands as you build out skills. See `docs/agent-template.md` for how.
 
 ## When to Load Additional Context
 
@@ -45,8 +51,17 @@ When you add project-specific data (metrics, pipeline status, etc.), pick one fi
 
 Context files should have a `**Last Updated:**` line near the top. Flag any file 90+ days old when using it.
 
+## Parallel Sessions
+
+When running parallel Claude Code sessions, use `claude --worktree <task-name>` so each gets its own branch. Merge to main when done. Run `/reconcile` after parallel work to catch drift.
+
+## Claude Code vs claude.ai
+
+This repo is designed for **Claude Code** (CLI). If you also use **claude.ai projects**, upload key files (CLAUDE.md, ROUTING.md, identity files) as project knowledge. See `references/claude-projects.md` if present.
+
 ## Repo Maintenance
 
 - Whenever you add, remove, or significantly change a file, update `CHANGELOG.md`
 - Keep CLAUDE.md under 100 lines — detail goes in skills and ROUTING.md, not here
 - Run `scripts/validate-skills.sh` before pushing to check structure
+- After adding/removing files, run `scripts/generate-repo-map.sh` to update REPO_MAP.md
