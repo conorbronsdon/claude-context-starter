@@ -44,5 +44,13 @@ If a session file already exists for today, append a new section with a timestam
 ### 5. Update state/weekly-priorities.md (if relevant)
 If a priority was completed or changed, update it. Don't force an update if nothing changed.
 
-### 6. Confirm with user
+### 6. Quick drift check
+
+Run `git log --oneline --all --since="6 hours ago"` to check for commits from other sessions.
+
+- If any commits touched files that were also edited in this session, flag the potential conflict to the user.
+- If no parallel commits are found, skip silently — do not mention this step.
+- This is a fast check, not a full `/reconcile`.
+
+### 7. Confirm with user
 Show a brief summary: "Session logged. State updated. Next priorities: [X, Y, Z]."

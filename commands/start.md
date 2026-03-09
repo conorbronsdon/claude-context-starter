@@ -41,7 +41,19 @@ Use `gmail_users_messages_list` with `{"userId": "me", "q": "is:unread", "maxRes
 **Project trackers (if configured):**
 If you use Google Sheets to track anything (tasks, pipeline, content log), check `state/gws-references.md` for configured Sheet IDs and query them here. If the file has no IDs yet, skip this step — see `state/gws-references.md` for setup instructions.
 
-### 4. Give a briefing
+### 4. Health checks
+
+Run these quick checks and include any findings in the briefing:
+
+**Stale state files:** Scan `state/*.md` for a `Last Updated:` line. Flag any file not updated in 3+ days.
+
+**Inbox items:** Check if `inbox/` contains any files (excluding `.gitkeep`). If so, note the count and suggest running `/capture`.
+
+**Overdue TODOs:** Scan `TODO.md` for unchecked items (`[ ]`) with a date that has passed. List any overdue items.
+
+Only mention findings — skip silently if everything is clean.
+
+### 5. Give a briefing
 Keep it short:
 - Date and day of week
 - Top 2-3 priorities from `state/current.md`
