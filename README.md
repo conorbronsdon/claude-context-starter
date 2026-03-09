@@ -6,103 +6,35 @@ This repo flips that. Your context lives in files. Claude Code reads them direct
 
 ---
 
-## What's in here
-
-```
-CLAUDE.md                         # Main context file — who you are, slash commands, routing
-ROUTING.md                        # Full context routing table for tasks without a slash command
-TODO.md                           # Canonical task backlog (separate from state/current.md)
-SETUP-PROMPTS.md                  # Interactive prompts to build your context files from scratch
-.mcp.json                         # Google Workspace MCP config (Drive, Gmail, Calendar, Sheets)
-identity/
-  who-i-am.md                    # Your bio, background, goals
-  professional-background.md     # Credentials and credibility
-writing/
-  skills/
-    avoid-ai-writing/
-      SKILL.md                   # Audit content to remove AI writing patterns
-projects/
-  README.md                      # How to build a project section
-  example-musician/              # Example: a musician's promotion workflow
-    artist-context.md
-    promotion-strategy.md
-    skills/
-      social-post/SKILL.md
-      press-outreach/SKILL.md
-state/
-  current.md                     # Active priorities and open threads (top-of-mind view)
-  weekly-priorities.md           # What matters most this week
-  decisions.md                   # Append-only decision log (newest first)
-  blockers.md                    # Active blockers preventing progress
-  heartbeat-log.md               # Running log from /today morning briefings
-  gws-references.md              # Google Sheet/Drive IDs for live data in /start
-sessions/                         # Per-day session logs (created by /end)
-inbox/                            # Drop zone for unstructured notes (triaged by /capture)
-content/
-  log.md                         # Published content log (used by /report)
-commands/
-  start.md                       # /start — begin a session
-  end.md                         # /end — log session and update state
-  update.md                      # /update — mid-session checkpoint
-  today.md                       # /today — morning heartbeat
-  capture.md                     # /capture — triage inbox items
-  context.md                     # /context — find files by topic
-  digest.md                      # /digest — synthesize session logs
-  reconcile.md                   # /reconcile — drift detection
-  content-shipped.md             # /content-shipped — log published content
-  clean-ai-writing.md            # /clean-ai-writing command
-scripts/
-  validate-skills.sh             # Check skill structure, frontmatter, secrets, staleness
-  setup.sh                       # First-run setup (hooks, permissions, repo map)
-  generate-repo-map.sh           # Auto-generate REPO_MAP.md
-  pre-commit-hook.sh             # Pre-commit validation hook
-references/
-  gws-mcp-setup.md               # Google Workspace MCP setup guide
-  notion-mcp-setup.md            # Notion MCP server setup guide
-.claude/
-  hooks/
-    session-start.sh             # Advisory hook: stale files, inbox, overdue TODOs
-    ssot-guard.sh                # Advisory hook: warn on SSOT file edits
-.github/
-  workflows/validate.yml         # CI: skill validation + REPO_MAP freshness
-  PULL_REQUEST_TEMPLATE.md       # PR checklist
-docs/
-  agent-template.md              # Scaffold for building new skills
-  migration-guide.md             # How to move from existing Claude projects into this repo
-  claude-projects-sync.md        # How to keep claude.ai projects in sync with this repo
-  optimizing-context.md          # Convert PDFs/docs to .md and trim files for token efficiency
-```
-
----
-
-## Setup
-
-**Step 1: Clone the repo**
+## Quick start
 
 ```bash
 git clone https://github.com/conorbronsdon/claude-context-starter.git my-context
 cd my-context
-```
-
-**Step 2: Run setup**
-
-```bash
 bash scripts/setup.sh
 ```
 
-This installs the pre-commit hook, makes scripts executable, and generates `REPO_MAP.md`. It also checks that you have Claude Code installed — if not:
+The setup script walks you through the basics: sets your name, swaps the git remote to your own repo, installs hooks, and offers to launch Claude Code. If you don't have Claude Code yet:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-Claude Code reads `CLAUDE.md` automatically on every session start — that's how your context loads. Run it from the repo directory and it picks everything up. Full setup docs: https://docs.anthropic.com/en/docs/claude-code
+Once you're in Claude Code, run:
 
-**Step 3: Build your context files**
+```
+/setup
+```
 
-Open `SETUP-PROMPTS.md`. It has four prompts you paste into Claude Code — Claude interviews you and writes the files directly. Start with Prompt 1 (your identity) and Prompt 2 (your first project). The whole thing takes under 20 minutes and you'll have a working setup when you're done. No manual editing required.
+Claude interviews you and builds your context files — identity, first project, weekly priorities. Takes about 10 minutes. No manual editing required.
 
-**Step 4: Run your first session**
+**Using claude.ai instead?** Open `SETUP-PROMPTS.md` and paste the prompts there — same questions, same results, you just copy the output into files manually.
+
+---
+
+## After setup
+
+Run your first session:
 
 ```bash
 cd /path/to/my-context
@@ -110,119 +42,103 @@ claude
 /start
 ```
 
-`/start` loads your current state and any connected calendar or email data. On your first run it'll orient Claude to who you are and what's in the repo.
-
-**Step 5: Connect your claude.ai projects**
-
-Upload `CLAUDE.md`, `ROUTING.md`, and any relevant skill or project files to each claude.ai project as knowledge. Claude will read from the same source as Claude Code. When you update a file in the repo, re-upload it — your projects stay current with one file swap instead of rewriting system prompts.
-
-See [docs/claude-projects-sync.md](docs/claude-projects-sync.md) for the full workflow, including which files to upload for different project types and how to use skills like `avoid-ai-writing` in claude.ai without a slash command.
-
-**Step 6: Set up Google Workspace MCP (optional)**
-
-Enables Claude to read your calendar, email, Drive, and Sheets mid-session — useful for the `/start` command and any task that needs live data.
-
-```bash
-npm install -g @googleworkspace/cli
-gws auth setup
-```
-
-The `.mcp.json` in this repo is already configured. Claude Code picks it up automatically when you run from the repo directory. Full instructions are in `references/gws-mcp-setup.md`.
-
----
-
-## The session loop
-
-The core workflow: **`/start` → work → `/end`**
+`/start` loads your state and gives you a briefing. At the end of your session, run `/end` to log what happened. That's the core loop — `/start` → work → `/end`.
 
 | Command | When | What it does |
 |---------|------|-------------|
+| `/setup` | First time | Interactive onboarding — builds all your context files |
 | `/start` | Beginning of session | Loads state, pulls live data, gives you a briefing |
 | `/update` | Mid-session | Quick checkpoint — saves progress without closing |
 | `/end` | End of session | Logs what happened, updates state for next time |
 | `/today` | Start of day | Lighter heartbeat — staleness check, calendar, priorities |
 | `/capture` | When inbox has items | Triages raw notes from `inbox/` into the right files |
 | `/context` | Any time | Finds relevant context files by topic keyword |
-| `/digest` | Weekly | Synthesizes session logs into patterns and stale threads |
 | `/reconcile` | After parallel work | Detects drift between sessions, SSOT violations |
 | `/content-shipped` | After publishing | Logs a published piece to `content/log.md` |
 
-`/start` and `/end` are the critical pair. Without `/end`, your state files go stale and the next `/start` loses context. Think of it as save/load for your working memory.
-
-Session logs are written to `sessions/YYYY-MM-DD.md` — see `sessions/README.md` for the format.
-
 ---
 
-## How to use it day-to-day
+## What's in the repo
 
-Start every Claude Code session with `/start`. It loads your current state and surfaces what's on your plate.
-
-Tell Claude to update files when things change:
-
-- "Update `state/current.md` — we finished the migration, that's no longer active"
-- "Add a new entry to CHANGELOG"
-- "I just joined a new company — let's update `identity/who-i-am.md`"
-
-Claude will make the edits and commit the changes. Over time, the repo becomes a running record of your context, not a snapshot that decays.
+```
+CLAUDE.md                         # Root context — loaded on every session
+ROUTING.md                        # Context routing for tasks without a slash command
+TODO.md                           # Task backlog
+SETUP-PROMPTS.md                  # Setup prompts for claude.ai users
+identity/                         # Your bio, background, goals
+projects/                         # Project context and skills (with worked example)
+writing/skills/                   # Writing skills (avoid-ai-writing included)
+state/                            # Session state, priorities, decisions, blockers
+sessions/                         # Per-day session logs (created by /end)
+inbox/                            # Drop zone for raw notes (triaged by /capture)
+content/log.md                    # Published content log
+commands/                         # Slash command definitions (including /setup onboarding)
+scripts/                          # Setup, validation, repo map generation
+docs/                             # Architecture guides, migration, safety contract
+references/                       # Integration setup (Google Workspace, Notion)
+.claude/hooks/                    # Session start + SSOT guard hooks
+.github/                          # CI validation + PR template
+```
 
 ---
 
 ## Skills work everywhere
 
-A skill is a markdown file that gives Claude specific instructions for a recurring task. Build it once and it works in every interface you use.
+A skill is a markdown file that tells Claude how to do a recurring task. Build it once and it works as a slash command in Claude Code and as uploaded knowledge in claude.ai.
 
-The `avoid-ai-writing` skill included here is a working example. In Claude Code, it runs as `/clean-ai-writing`. In a claude.ai project, you upload `writing/skills/avoid-ai-writing/SKILL.md` as knowledge and ask Claude to apply it — same behavior, no slash command needed.
+The `avoid-ai-writing` skill is included as a working example. In Claude Code: `/clean-ai-writing`. In claude.ai: upload `writing/skills/avoid-ai-writing/SKILL.md` as project knowledge and ask Claude to apply it.
 
-When you improve the skill file, re-upload it to your claude.ai projects. One source of truth, updated in one place.
+To build your own:
 
-To build your own skills:
+1. Read `docs/agent-template.md` for the scaffold
+2. Create `projects/your-project/skills/your-skill-name/SKILL.md`
+3. Add a command file in `commands/` and a row in `CLAUDE.md`
+4. Run `scripts/validate-skills.sh` to verify
 
-1. Read `docs/agent-template.md` for the scaffold and checklist
-2. Create a directory under `projects/your-project/skills/your-skill-name/`
-3. Add a `SKILL.md` file with instructions for the task
-4. Add a command file in `commands/` and a row in `CLAUDE.md` for a slash command
-5. Run `scripts/validate-skills.sh` to verify the structure
-6. Upload the file to any claude.ai projects where you want the same behavior
+See `projects/README.md` for conventions and the example musician project for the full pattern.
 
-The `projects/example-musician/` directory shows the full pattern with two working skills. See `projects/README.md` for the conventions. Use Prompt 3 in `SETUP-PROMPTS.md` to have Claude build a new project section interactively.
+---
+
+## Optional integrations
+
+**Google Workspace MCP** — lets Claude read your calendar, email, Drive, and Sheets mid-session:
+
+```bash
+npm install -g @googleworkspace/cli
+gws auth setup
+```
+
+The `.mcp.json` is already configured. See `references/gws-mcp-setup.md` for details.
+
+**claude.ai sync** — upload `CLAUDE.md`, `ROUTING.md`, and relevant skill files to claude.ai projects as knowledge. See `docs/claude-projects-sync.md` for the workflow.
 
 ---
 
 ## Validation
 
-Run `scripts/validate-skills.sh` before pushing to catch common issues:
-
-- Missing or malformed YAML frontmatter on skill and command files
-- CLAUDE.md over 100 lines (keep detail in skills and ROUTING.md, not the root file)
-- Secrets accidentally committed (API keys, tokens, private keys)
-- Stale context files (90+ days since last update)
-
 ```bash
 bash scripts/validate-skills.sh
 ```
+
+Checks for: missing frontmatter, CLAUDE.md over 100 lines, committed secrets, stale files (90+ days).
 
 ---
 
 ## Key conventions
 
-- **Single source of truth:** Each piece of data lives in one file. Other files reference it, never duplicate it. See `CLAUDE.md` for the SSOT rules.
-- **CLAUDE.md stays small:** Under 100 lines. It's loaded on every session — detail belongs in skills and ROUTING.md.
-- **Staleness dates:** Context files should have `**Last Updated:**` near the top. The validation script flags anything 90+ days old.
-- **TODO.md vs. current.md:** `TODO.md` is the full backlog. `state/current.md` is the curated top-of-mind view for `/start`. Don't duplicate between them.
+- **Single source of truth:** Each fact lives in one file. Others reference, never duplicate.
+- **CLAUDE.md stays small:** Under 100 lines. Detail goes in skills and ROUTING.md.
+- **Staleness dates:** `**Last Updated:**` near the top of context files. Validation flags 90+ days.
+- **TODO.md vs. current.md:** TODO is the full backlog; `state/current.md` is the top-of-mind view.
 
 ---
 
 ## Migrating from existing Claude projects
 
-If you already have Claude projects with uploaded files and custom instructions, [docs/migration-guide.md](docs/migration-guide.md) has the full process:
-
-- A reusable audit prompt to run in each existing project
-- How to evaluate what's worth migrating vs. deleting
-- How to structure what you move into this repo
-- How to connect the repo to claude.ai projects going forward
+See [docs/migration-guide.md](docs/migration-guide.md) — includes an audit prompt, evaluation criteria, and restructuring guide.
 
 ---
 
 ## Contributing
 
-This is a template, so the most useful contributions are structural — better examples, cleaner conventions, and skills that others can adapt. Open an issue if you have a pattern worth adding or a gap worth filling.
+This is a template — the most useful contributions are structural: better examples, cleaner conventions, and skills others can adapt. Open an issue if you have a pattern worth adding.

@@ -8,6 +8,7 @@
 
 | Command | Does |
 |---------|------|
+| `/setup` | Interactive onboarding — builds identity, project, and state files conversationally |
 | `/start` | Load state, pull live data, get a session briefing |
 | `/end` | Log session, update state files for next time |
 | `/update` | Mid-session checkpoint — quick state save |
