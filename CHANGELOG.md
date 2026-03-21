@@ -28,7 +28,6 @@
 - `content/log.md` — published content log template
 - `commands/capture.md` — /capture: triage inbox items into correct locations
 - `commands/context.md` — /context: find relevant context files by topic keyword
-- `commands/digest.md` — /digest: synthesize session logs into patterns and stale threads
 - `commands/reconcile.md` — /reconcile: drift detection after parallel sessions
 - `commands/content-shipped.md` — /content-shipped: log published content
 - `references/notion-mcp-setup.md` — Notion MCP server setup guide
