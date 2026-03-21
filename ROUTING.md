@@ -20,7 +20,7 @@ For tasks without a slash command, use this table to determine which files to lo
 - Ending a session → `/end`
 - Quick checkpoint → `/update`
 - Morning check-in → `/today`
-- Synthesize session patterns → `/report` or review `sessions/` logs directly
+- Synthesize session patterns → review `sessions/` logs directly
 - Weekly review → read `state/current.md` and `state/weekly-priorities.md`
 - Task backlog → read `TODO.md`
 
