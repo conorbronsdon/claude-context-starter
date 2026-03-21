@@ -57,7 +57,7 @@ When running parallel Claude Code sessions, use `claude --worktree <task-name>` 
 
 ## Claude Code vs claude.ai
 
-This repo is designed for **Claude Code** (CLI). If you also use **claude.ai projects**, upload key files (CLAUDE.md, ROUTING.md, identity files) as project knowledge. See `references/claude-projects.md` if present.
+This repo is designed for **Claude Code** (CLI). If you also use **claude.ai projects**, upload key files (CLAUDE.md, ROUTING.md, identity files) as project knowledge. See `docs/claude-projects-sync.md` if present.
 
 ## Repo Maintenance
 See `docs/repo-maintenance.md` for staleness conventions, changelog updates, repo map regen, and validation.
