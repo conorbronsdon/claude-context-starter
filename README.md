@@ -142,3 +142,9 @@ See [docs/migration-guide.md](docs/migration-guide.md) — includes an audit pro
 ## Contributing
 
 This is a template — the most useful contributions are structural: better examples, cleaner conventions, and skills others can adapt. Open an issue if you have a pattern worth adding.
+
+---
+
+## Disclaimer
+
+*All views, opinions, and statements expressed on this account are solely my own and are made in my personal capacity. They do not reflect, and should not be construed as reflecting, the views, positions, or policies of Modular. This account is not affiliated with, authorized by, or endorsed by Modular in any way.*
