@@ -20,6 +20,8 @@
 | `/reconcile` | Drift detection after parallel sessions |
 | `/recover` | Scan orphaned worktrees and stale branches, offer cleanup |
 | `/content-shipped` | Log a published piece of content |
+| `/dream` | Run an autonomous curator pass over the memory dir (default: rot detection) |
+| `/dream-apply` | Walk a curator proposal artifact, accept/reject/edit per item |
 
 Add more commands as you build out skills. See `docs/agent-template.md` for how.
 
@@ -41,6 +43,11 @@ This mode applies to career moves, strategy decisions, project bets, and any "he
 
 ## Safety Contract
 Actions that change external state or are hard to reverse require confirmation. See `docs/safety-contract.md` for the full policy, approval patterns, and design principles.
+
+## Memory
+Claude Code auto-loads `~/.claude/projects/<encoded-cwd>/memory/MEMORY.md` on every conversation in this project. Use it as a persistent, file-based memory: typed entries (`user`, `feedback`, `project`, `reference`), one-line pointers in `MEMORY.md`, detail in `<topic>.md` files. See `docs/auto-memory.md` for the full spec — when to save, when NOT to save, body structure, the two-step write. `MEMORY.md` is capped at ~100 lines.
+
+Run `/dream` periodically to curate (rot, contradictions, untapped patterns). Run `/dream-apply` to review proposed changes. See `docs/dream-architecture.md`.
 
 ## Single Source of Truth
 

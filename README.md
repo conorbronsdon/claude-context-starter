@@ -4,6 +4,8 @@ Most people paste their context into Claude's project instructions and forget ab
 
 This repo flips that. Your context lives in files. Claude Code reads them directly; claude.ai projects read the same files as uploaded knowledge. Update a file once, and every interface you use stays current. Build a skill once — like the `avoid-ai-writing` skill included here — and it works as a slash command in Claude Code and as uploaded context in any claude.ai project.
 
+It also gives Claude a persistent, file-based **auto-memory** that grows over time (typed entries for user/feedback/project/reference) plus a `/dream` curator that runs autonomous passes over the memory dir — rot detection, contradiction surfacing, pattern capture — and produces reviewable proposals before anything writes back. See [`docs/auto-memory.md`](docs/auto-memory.md) and [`docs/dream-architecture.md`](docs/dream-architecture.md).
+
 ---
 
 ## Quick start
@@ -54,7 +56,10 @@ claude
 | `/capture` | When inbox has items | Triages raw notes from `inbox/` into the right files |
 | `/context` | Any time | Finds relevant context files by topic keyword |
 | `/reconcile` | After parallel work | Detects drift between sessions, SSOT violations |
+| `/recover` | After a crash | Scans orphaned worktrees and stale branches, offers safe cleanup |
 | `/content-shipped` | After publishing | Logs a published piece to `content/log.md` |
+| `/dream` | Weekly-ish | Runs an autonomous curator pass over the memory dir (default: rot detection) |
+| `/dream-apply` | After `/dream` | Walks the proposal artifact, accept/reject/edit per item |
 
 ---
 
@@ -72,12 +77,19 @@ state/                            # Session state, priorities, decisions, blocke
 sessions/                         # Per-day session logs (created by /end)
 inbox/                            # Drop zone for raw notes (triaged by /capture)
 content/log.md                    # Published content log
-commands/                         # Slash command definitions (including /setup onboarding)
+commands/                         # Slash command definitions (including /setup, /dream, /dream-apply)
 scripts/                          # Setup, validation, repo map generation
-docs/                             # Architecture guides, migration, safety contract
+scripts/dream/                    # Curator prompts + how-to for the /dream substrate
+docs/                             # Architecture guides — auto-memory, dream, migration, safety
 references/                       # Integration setup (Google Workspace, Notion)
 .claude/hooks/                    # Session start + SSOT guard hooks
 .github/                          # CI validation + PR template
+
+# Auto-memory lives outside the repo (per-machine, often confidential):
+~/.claude/projects/<encoded-cwd>/memory/
+  MEMORY.md                       # Index loaded into every conversation
+  <topic>.md                      # Detail files loaded on demand
+  .dreams/<ISO>/                  # Curator proposal artifacts
 ```
 
 ---
@@ -96,6 +108,27 @@ To build your own:
 4. Run `scripts/validate-skills.sh` to verify
 
 See `projects/README.md` for conventions and the example musician project for the full pattern.
+
+---
+
+## Auto-memory
+
+Claude Code auto-loads `~/.claude/projects/<encoded-cwd>/memory/MEMORY.md` at the start of every conversation in this project. The starter ships a spec ([`docs/auto-memory.md`](docs/auto-memory.md)) for what to save (and what NOT to save) across four typed memory categories:
+
+- **user** — role, expertise, preferences
+- **feedback** — guidance about *how* to work, both corrections and validated approaches
+- **project** — in-flight work, decisions, the *why* behind them
+- **reference** — pointers to external systems (trackers, dashboards, channels)
+
+`MEMORY.md` is an index. Detail files load on demand. Cap the index at ~100 lines.
+
+`docs/memory-template.md` is the seed file. Copy it to the memory dir on first setup.
+
+### /dream — autonomous curator
+
+Memory accumulates faster than humans review it. `/dream` runs an autonomous curator pass over the memory dir (default curator: **rot detection** — flags project memories that no longer match your state files or recent commits) and writes a reviewable proposal artifact. `/dream-apply` walks the artifact and applies accepted items, all under git on the memory dir so any pass is one `git revert` away.
+
+See [`docs/dream-architecture.md`](docs/dream-architecture.md) for the full design (curator catalog, proposal schema, scope guards).
 
 ---
 
