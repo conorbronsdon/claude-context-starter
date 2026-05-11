@@ -1,0 +1,11 @@
+# Repos guarded by worktree-guard.sh + branch-hygiene.sh.
+# One repo basename per line. Lines starting with `#` and blank lines are ignored.
+#
+# Add a repo here when you find yourself running multiple Claude sessions
+# against it and want the parallel-edit collision protection. Until a repo
+# is listed, both hooks no-op for it.
+#
+# Examples (uncomment / edit for your own repos):
+# my-personal-context
+# my-website
+# my-side-project

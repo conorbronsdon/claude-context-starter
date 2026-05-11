@@ -60,6 +60,7 @@ claude
 | `/content-shipped` | After publishing | Logs a published piece to `content/log.md` |
 | `/dream` | Weekly-ish | Runs an autonomous curator pass over the memory dir (default: rot detection) |
 | `/dream-apply` | After `/dream` | Walks the proposal artifact, accept/reject/edit per item |
+| `/skill-creator` | Adding new skills | Generates the SKILL.md, command file, and CLAUDE.md additions from a plain-language description |
 
 ---
 
@@ -77,12 +78,13 @@ state/                            # Session state, priorities, decisions, blocke
 sessions/                         # Per-day session logs (created by /end)
 inbox/                            # Drop zone for raw notes (triaged by /capture)
 content/log.md                    # Published content log
-commands/                         # Slash command definitions (including /setup, /dream, /dream-apply)
+commands/                         # Slash command definitions (including /setup, /dream, /skill-creator)
+skills/                           # Cross-cutting / meta skills (e.g., skill-creator)
 scripts/                          # Setup, validation, repo map generation
 scripts/dream/                    # Curator prompts + how-to for the /dream substrate
 docs/                             # Architecture guides — auto-memory, dream, migration, safety
 references/                       # Integration setup (Google Workspace, Notion)
-.claude/hooks/                    # Session start + SSOT guard hooks
+.claude/hooks/                    # Session start + SSOT guard + parallel-session guards
 .github/                          # CI validation + PR template
 
 # Auto-memory lives outside the repo (per-machine, often confidential):
@@ -102,10 +104,8 @@ The `avoid-ai-writing` skill is included as a working example. In Claude Code: `
 
 To build your own:
 
-1. Read `docs/agent-template.md` for the scaffold
-2. Create `projects/your-project/skills/your-skill-name/SKILL.md`
-3. Add a command file in `commands/` and a row in `CLAUDE.md`
-4. Run `scripts/validate-skills.sh` to verify
+1. Run `/skill-creator` and describe what the skill should do — it generates the SKILL.md, the command file, and the CLAUDE.md additions for you to review.
+2. Or do it manually: read `docs/agent-template.md`, create `projects/<your-project>/skills/<your-skill-name>/SKILL.md`, add a command file in `commands/`, add a row to `CLAUDE.md`, then run `scripts/validate-skills.sh`.
 
 See `projects/README.md` for conventions and the example musician project for the full pattern.
 
@@ -129,6 +129,19 @@ Claude Code auto-loads `~/.claude/projects/<encoded-cwd>/memory/MEMORY.md` at th
 Memory accumulates faster than humans review it. `/dream` runs an autonomous curator pass over the memory dir (default curator: **rot detection** — flags project memories that no longer match your state files or recent commits) and writes a reviewable proposal artifact. `/dream-apply` walks the artifact and applies accepted items, all under git on the memory dir so any pass is one `git revert` away.
 
 See [`docs/dream-architecture.md`](docs/dream-architecture.md) for the full design (curator catalog, proposal schema, scope guards).
+
+---
+
+## Running multiple Claude sessions
+
+Running more than one Claude Code session against the same repo simultaneously will eventually corrupt your tree — silent branch-switches, one session's `git add` landing in another session's commit, files committed to the wrong branch. The fix is `git worktree`: one checkout per session.
+
+The starter ships two hooks that enforce this pattern:
+
+- **`worktree-guard.sh`** (`PreToolUse`) — blocks `Edit`/`Write` to a guarded repo's primary checkout when ≥2 Claude sessions are running. Worktrees are still free. Emergency override: `touch .allow-shared-edit` at the repo root.
+- **`branch-hygiene.sh`** (`SessionStart`) — surfaces non-default HEAD on guarded repos so a silent branch-switch is noticed before any edits land.
+
+Both hooks no-op until you list a repo basename in `.claude/hooks/guarded-repos.txt`. See `.claude/hooks/README.md` for setup.
 
 ---
 

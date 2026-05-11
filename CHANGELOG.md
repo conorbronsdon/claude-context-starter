@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [0.9.0] — Parallel-session hooks + skill-creator
+### Added
+- `.claude/hooks/worktree-guard.sh` — `PreToolUse` hook that blocks `Edit`/`Write` to a guarded repo's primary checkout when ≥2 Claude sessions are running. Allows worktrees. Emergency override via `.allow-shared-edit` at the repo root.
+- `.claude/hooks/branch-hygiene.sh` — `SessionStart` hook that surfaces non-default HEAD on guarded repos (last commit, uncommitted count, ahead/behind vs default). Stays quiet on freshly-created worktrees (clean tree + commit < 2 min old).
+- `.claude/hooks/guarded-repos.txt` — config file listing repo basenames the parallel-session guards apply to. Both hooks no-op until at least one repo is listed.
+- `skills/skill-creator/SKILL.md` — meta-skill that generates a new skill from a plain-language description: clarifies inputs/outputs, drafts the SKILL.md + command file + CLAUDE.md additions, runs a pre-ship checklist, asks before committing.
+- `commands/skill-creator.md` — `/skill-creator` slash command that loads the skill.
+### Changed
+- `.claude/hooks/README.md` — adds the parallel-session guards to the file table, adds an "enable" section, adds both new hooks to the `settings.local.json` example.
+- `README.md` — command table adds `/skill-creator`; file tree includes `skills/` and notes the parallel-session guards; new "Running multiple Claude sessions" section explains the hooks; "Skills work everywhere" promotes `/skill-creator` over manual scaffolding.
+- `CLAUDE.md` template — command table adds `/skill-creator`; "Parallel Sessions" section points at `.claude/hooks/guarded-repos.txt` and the two guard hooks.
+
+---
+
 ## [0.8.0] — Auto-memory + dream curator substrate
 ### Added
 - `docs/auto-memory.md` — spec for Claude Code's auto-memory: four typed entries (`user`, `feedback`, `project`, `reference`), what to save / NOT save, body structure with **Why:** + **How to apply:** lines, two-step write (detail file + index pointer), 100-line MEMORY.md cap

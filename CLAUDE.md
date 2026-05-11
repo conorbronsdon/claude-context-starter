@@ -22,6 +22,7 @@
 | `/content-shipped` | Log a published piece of content |
 | `/dream` | Run an autonomous curator pass over the memory dir (default: rot detection) |
 | `/dream-apply` | Walk a curator proposal artifact, accept/reject/edit per item |
+| `/skill-creator` | Generate a new skill and command routing file from a plain-language description |
 
 Add more commands as you build out skills. See `docs/agent-template.md` for how.
 
@@ -61,6 +62,8 @@ When you add project-specific data (metrics, pipeline status, etc.), pick one fi
 ## Parallel Sessions
 
 When running parallel Claude Code sessions, use `claude --worktree <task-name>` so each gets its own branch. Merge to main when done. Run `/reconcile` after parallel work to catch drift.
+
+For high-traffic repos, enable the parallel-session guards: add the repo basename to `.claude/hooks/guarded-repos.txt` and `worktree-guard.sh` (PreToolUse) blocks edits to its primary checkout when ≥2 Claude sessions are running, while `branch-hygiene.sh` (SessionStart) surfaces non-default HEAD. See `.claude/hooks/README.md`.
 
 ## Claude Code vs claude.ai
 
