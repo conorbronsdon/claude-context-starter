@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.8.0] — Auto-memory + dream curator substrate
+### Added
+- `docs/auto-memory.md` — spec for Claude Code's auto-memory: four typed entries (`user`, `feedback`, `project`, `reference`), what to save / NOT save, body structure with **Why:** + **How to apply:** lines, two-step write (detail file + index pointer), 100-line MEMORY.md cap
+- `docs/memory-template.md` — seed `MEMORY.md` template with one-line example pointers per type + first-time setup
+- `docs/dream-architecture.md` — three-layer design (inputs → curator pass → proposal artifact → human-gated apply), curator catalog (rot v0.1 ships, pattern/contradiction/untapped/audit planned), proposal schema, local-only memory git rationale, risks + mitigations
+- `commands/dream.md` — `/dream {curator}` slash command. Default curator: `rot`. Derives memory dir from pwd, gathers inputs (read-only), writes `proposals.json` + `REPORT.md` + `inputs.json` to `memory/.dreams/{ISO}/`, commits to memory git
+- `commands/dream-apply.md` — `/dream-apply {ISO}` slash command. Walks proposals with `AskUserQuestion`, supports Accept / Reject / Edit-then-accept / Skip-rest, applies `modify`/`archive`/`add`/`flag` actions, writes `applied.json`, commits to memory git
+- `scripts/dream/README.md` — usage, first-time setup (init memory git, no remote), how to add new curators
+- `scripts/dream/prompts/rot.md` — rot-detector curator prompt: role, inputs, classification rules, required-evidence rule, output schema (`proposals.json` + `REPORT.md`)
+### Changed
+- `README.md` — opening paragraph now leads with auto-memory + `/dream` as the second-most-distinctive thing the starter ships; new "Auto-memory" section with the four types and curator overview; command table adds `/dream`, `/dream-apply`, `/recover`; file tree shows `scripts/dream/` and the external memory dir layout
+- `CLAUDE.md` template — command table adds `/dream` + `/dream-apply`; new "Memory" section points at `docs/auto-memory.md` + `docs/dream-architecture.md`
+
+---
+
 ## [0.7.1] — Safety contract and /recover
 ### Added
 - `docs/safety-contract.md` — centralized policy for actions requiring confirmation (approval patterns, advisory warnings, design principles)
