@@ -31,6 +31,7 @@ Once you're in Claude Code, run:
 Claude interviews you and builds your context files — identity, first project, weekly priorities. Takes about 10 minutes. No manual editing required.
 
 **Using claude.ai instead?** Open `SETUP-PROMPTS.md` and paste the prompts there — same questions, same results, you just copy the output into files manually.
+_Note: you can give your claude.ai session this repo as project context after it's set up, and easily sync it_
 
 ---
 
