@@ -101,7 +101,7 @@ references/                       # Integration setup (Google Workspace, Notion)
 
 A skill is a markdown file that tells Claude how to do a recurring task. Build it once and it works as a slash command in Claude Code and as uploaded knowledge in claude.ai.
 
-The `avoid-ai-writing` skill is included as a working example. In Claude Code: `/clean-ai-writing`. In claude.ai: upload `writing/skills/avoid-ai-writing/SKILL.md` as project knowledge and ask Claude to apply it.
+The `avoid-ai-writing` skill is included as a working example. In Claude Code: `/clean-ai-writing`. In claude.ai: upload `writing/skills/avoid-ai-writing/SKILL.md` as project knowledge and ask Claude to apply it. The easiest way to do this is by using Claude projects to give it this repo, for consistent context with all of your skills included.
 
 To build your own:
 
